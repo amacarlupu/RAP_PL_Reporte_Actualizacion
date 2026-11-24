@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service definition forZSEI_C_CDS_PLUPLOAD'
+define service ZSEI_SD_PLUPLOAD {
+  expose ZSEI_C_CDS_PLUPLOAD as PLUpload;
+  expose ZSEI_C_CDS_PL_ITEM as PLItem;
+  expose ZSEI_I_CDS_ESTADO_VH as EstadoVH;
+}

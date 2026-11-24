@@ -1,0 +1,78 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'PackList',
+    typeNamePlural: 'PackLists'
+  }
+}
+annotate view ZSEI_C_CDS_PACKLIST with
+{
+  @UI.facet: [ {
+    id: 'idIdentification',
+    type: #IDENTIFICATION_REFERENCE,
+    label: 'PackList',
+    position: 10
+  } ]
+  @UI.lineItem: [ {
+    position: 10 ,
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 10
+  } ]
+  @UI.selectionField: [ { position: 10 } ]
+  proveedor;
+
+  @UI.lineItem: [ {
+    position: 20 ,
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 20
+  } ]
+  @UI.selectionField: [ { position: 20 } ]
+  @EndUserText.label: 'OrgCompra'
+  orgCompra;
+
+  @UI.lineItem: [ {
+    position: 30 ,
+    importance: #HIGH
+  } ]
+  @UI.identification: [ {
+    position: 30
+  } ]
+  @UI.selectionField: [ { position: 30 } ]
+  @EndUserText.label: 'Marca'
+  marca;
+
+  @UI.lineItem: [ {
+    position: 40 ,
+    importance: #MEDIUM
+  } ]
+  @UI.identification: [ {
+    position: 40
+  } ]
+  correlativo;
+
+  @UI.lineItem: [ {
+    position: 50 ,
+    importance: #MEDIUM
+  } ]
+  @UI.identification: [ {
+    position: 50
+  } ]
+  accion;
+
+  @UI.lineItem: [ {
+    position: 60 ,
+    importance: #MEDIUM
+  } ]
+  @UI.identification: [ {
+    position: 60
+  } ]
+  @EndUserText.label: 'Dato'
+  dato;
+
+  @UI.hidden: true
+  localLastChangedAt;
+}

@@ -1,0 +1,121 @@
+managed implementation in class ZSEI_BP_R_CDS_PLUPLOAD unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZSEI_R_CDS_PLUPLOAD alias PLUpload
+persistent table ztvms_pl_header
+draft table ztvms_pl_hdr_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+with additional save
+{
+  field ( readonly ) //los llena el sistema
+  uploadUUID,
+  createdAt,
+  createdBy,
+  lastChangedAt,
+  lastChangedBy,
+  localLastChangedAt,
+  proveedor,
+  orgCompra,
+  sociedad,
+  estado,
+  entrega;
+
+  field ( mandatory )
+  ordenCompra,
+  marca,
+  datosExcel;
+
+  field ( numbering : managed )
+  uploadUUID;
+
+
+  create;
+  update;
+  delete;
+
+  association _Item { create; with draft; }
+
+//Determinaciones: el sistema calcula solo
+  determination setEstadoInicial on modify { create; }
+  determination setDatosOC       on modify { field ordenCompra; }
+
+//Validaciones: se revisan al guardar
+  validation validarOrdenCompra on save { create; field ordenCompra; }
+  validation validarMarca       on save { create; field marca; }
+  validation validarConfig      on save { create; field ordenCompra, marca; }
+  validation validarDatos       on save { create; field datosExcel; }
+
+//Acciones: los botones
+  action ( features : instance ) ejecutar result [1] $self;
+  action ( features : instance ) procesar result [1] $self;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validarOrdenCompra;
+    validation validarMarca;
+    validation validarConfig;
+    validation validarDatos;
+  }
+
+  mapping for ZTVMS_PL_HEADER
+  {
+    uploadUUID = UPLOAD_UUID;
+    ordenCompra = ORDEN_COMPRA;
+    fechaEta = FECHA_ETA;
+    marca = MARCA;
+    proveedor = PROVEEDOR;
+    orgCompra = ORGCOMPRA;
+    sociedad = SOCIEDAD;
+    estado = ESTADO;
+    entrega = ENTREGA;
+    datosExcel = DATOS_EXCEL;
+    archivo = ARCHIVO;
+    mimeType = MIMETYPE;
+    nombreArchivo = NOMBRE_ARCHIVO;
+    createdBy = CREATED_BY;
+    createdAt = CREATED_AT;
+    lastChangedBy = LAST_CHANGED_BY;
+    lastChangedAt = LAST_CHANGED_AT;
+    localLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}
+
+// NUEVO: todo este bloque
+define behavior for ZSEI_R_CDS_PL_ITEM alias PLItem
+persistent table ztvms_pl_item
+draft table ztvms_pl_item_d
+lock dependent by _Upload
+authorization dependent by _Upload
+etag master localLastChangedAt
+{
+  update;
+  delete;
+
+  field ( readonly ) uploadUUID;
+  field ( numbering : managed, readonly ) itemUUID;
+
+  association _Upload { with draft; }
+
+  mapping for ztvms_pl_item
+  {
+    itemUUID = ITEM_UUID;
+    uploadUUID = UPLOAD_UUID;
+    fila = FILA;
+    material = MATERIAL;
+    color = COLOR;
+    vin = VIN;
+    lote = LOTE;
+    vguid = VGUID;
+    caracteristicas = CARACTERISTICAS;
+    criticidad = CRITICIDAD;
+    mensaje = MENSAJE;
+    localLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}

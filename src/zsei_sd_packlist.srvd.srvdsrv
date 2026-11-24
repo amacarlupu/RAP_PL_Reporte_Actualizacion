@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service definition forZSEI_C_CDS_PACKLIST'
+define service ZSEI_SD_PACKLIST {
+  expose ZSEI_C_CDS_PACKLIST as PackList;
+}

@@ -1,0 +1,39 @@
+managed implementation in class ZSEI_BP_R_CDS_PACKLIST unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZSEI_R_CDS_PACKLIST alias PackList
+persistent table ztvms_pack_list
+draft table ZTVMS_PACKLST_D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+
+{
+  field ( readonly )
+   LastChangedAt,
+   LocalLastChangedAt;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZTVMS_PACK_LIST
+  {
+    Proveedor = PROVEEDOR;
+    Orgcompra = ORGCOMPRA;
+    Marca = MARCA;
+    Correlativo = CORRELATIVO;
+    Accion = ACCION;
+    Dato = DATO;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+}

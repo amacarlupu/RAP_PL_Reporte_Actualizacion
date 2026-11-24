@@ -1,0 +1,117 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo : { typeName: 'PL Reporte de actualización',
+                      typeNamePlural: 'PL Reportes de actualizaciones',
+                      title: { type: #STANDARD,
+                               value: 'ordenCompra' } },
+       presentationVariant: [{ sortOrder: [ { by: 'ordenCompra',
+                                              direction: #DESC } ],
+                               visualizations: [{ type: #AS_LINEITEM }] }] }
+
+
+annotate view ZSEI_C_CDS_PLUPLOAD with
+{
+
+  //  @UI.facet: [{ id: 'PLReporteActualizacion',
+  //              purpose: #STANDARD,
+  //              type: #IDENTIFICATION_REFERENCE,
+  //              label: 'PL Reporte de actualizacion',
+  //              position: 10 },
+  //              { id: 'PLItems',
+  //              purpose: #STANDARD,
+  //              type: #LINEITEM_REFERENCE,
+  //              label: 'Prelog',
+  //              position: 20,
+  //              targetElement: '_Item' } ]
+
+  @UI.lineItem: [{ type: #FOR_INTENT_BASED_NAVIGATION,
+                    semanticObject: 'ZPackList',
+                    semanticObjectAction: 'manage',
+                    label: 'Mant. Carga Packing list',
+                    requiresContext: false }]
+  @UI.facet: [
+     { id: 'Parametros', purpose: #STANDARD, type: #FIELDGROUP_REFERENCE,
+       targetQualifier: 'Parametros', label: 'Parámetros de selección', position: 10 },
+     { id: 'Archivo', purpose: #STANDARD, type: #FIELDGROUP_REFERENCE,
+       targetQualifier: 'Archivo', label: 'Ruta del archivo', position: 20 },
+     { id: 'Determinados', purpose: #STANDARD, type: #FIELDGROUP_REFERENCE,
+       targetQualifier: 'Determinados', label: 'Datos determinados', position: 30 },
+     { id: 'PLItems', purpose: #STANDARD, type: #LINEITEM_REFERENCE,
+       targetElement: '_Item', label: 'Prelog', position: 40 } ]
+  @UI.identification: [ { type: #FOR_ACTION, dataAction: 'ejecutar', label: 'Ejecutar' },
+                      { type: #FOR_ACTION, dataAction: 'procesar', label: 'Procesar' } ]
+  @UI.hidden: true
+  uploadUUID;
+
+  @UI: { lineItem: [{ position: 10,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Parametros', position: 10 }],
+         selectionField: [{ position: 10 }] }
+  @EndUserText.label: 'N°Orden de compra'
+  ordenCompra;
+
+  @UI: { lineItem: [{ position: 20,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Parametros', position: 20 }] }
+  @EndUserText.label: 'Fecha Entrega'
+  fechaEta;
+
+  @UI: { lineItem: [{ position: 30,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Parametros', position: 30 }],
+         selectionField: [{ position: 20 }] }
+  @EndUserText.label: 'Marca'
+  marca;
+
+  @UI: { fieldGroup: [{ qualifier: 'Archivo', position: 10 }],
+       multiLineText: true }
+  @EndUserText.label: 'Datos del packing list'
+  datosExcel;
+
+  //  @UI.fieldGroup: [{ qualifier: 'Archivo', position: 10 }]
+  //  @EndUserText.label: 'Archivo Excel'
+  //  @UI.hidden: true
+  //  archivo;
+
+
+  @UI: { lineItem: [{ position: 40,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Determinados', position: 10 }] }
+  @EndUserText.label: 'Proveedor'
+  proveedor;
+
+  @UI: { lineItem: [{ position: 50,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Determinados', position: 20 }] }
+  @EndUserText.label: 'Org. compras'
+  orgCompra;
+
+  @UI: { lineItem: [{ position: 60,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Determinados', position: 30 }] }
+  @EndUserText.label: 'Sociedad'
+  sociedad;
+
+  @UI: { lineItem: [{ position: 70,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Determinados', position: 40 }],
+         selectionField: [{ position: 30 }] }
+  @EndUserText.label: 'Estado'
+  estado;
+
+  @UI: { lineItem: [{ position: 80,
+                      importance: #HIGH }],
+         fieldGroup: [{ qualifier: 'Determinados', position: 50 }] }
+  @EndUserText.label: 'Entrega'
+  entrega;
+
+
+  //  @UI.hidden: true
+  //  mimetype;
+
+  //  @UI.hidden: true
+  //  nombrearchivo;
+
+  @UI.hidden: true
+  localLastChangedAt;
+}

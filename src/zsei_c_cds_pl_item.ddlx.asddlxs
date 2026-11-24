@@ -1,0 +1,85 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo : { typeName: 'Vehiculo',
+                      typeNamePlural: 'Vehiculos',
+                      title: { type: #STANDARD,
+                               value: 'vin' } },
+       presentationVariant: [{ sortOrder: [ { by: 'vin',
+                                              direction: #DESC } ],
+                               visualizations: [{ type: #AS_LINEITEM }] }] }
+
+annotate entity ZSEI_C_CDS_PL_ITEM with
+{
+  @UI.facet: [{ id: 'Detalle',
+              purpose: #STANDARD,
+              type: #IDENTIFICATION_REFERENCE,
+              label: 'Detalle',
+              position: 10 } ]
+
+  @UI.hidden: true
+  itemUuid;
+
+  @UI.hidden: true
+  uploadUuid;
+
+  @UI: { lineItem: [{ position: 10,
+                  importance: #HIGH,
+                  label: 'fila' }],
+        identification: [{ position: 10 }] }
+  @EndUserText.label: 'Fila'
+  fila;
+  
+  @UI: { lineItem: [{ position: 20,
+                  importance: #HIGH,
+                  label: 'material' }],
+        identification: [{ position: 20 }] }
+  @EndUserText.label: 'Material'
+  material;
+  
+  @UI: { lineItem: [{ position: 30,
+                  importance: #HIGH,
+                  label: 'color' }],
+        identification: [{ position: 30 }] }
+  @EndUserText.label: 'Color'
+  color;
+  
+  @UI: { lineItem: [{ position: 40,
+                  importance: #HIGH,
+                  label: 'vin' }],
+        identification: [{ position: 40 }] }
+  @EndUserText.label: 'Vin'
+  vin;
+  
+  @UI: { lineItem: [{ position: 50,
+                  importance: #MEDIUM,
+                  label: 'lote' }],
+        identification: [{ position: 50 }] }
+  @EndUserText.label: 'Lote'
+  lote;
+  
+  @UI.hidden: true
+  vguid;
+  
+  @UI: { lineItem: [{ position: 60,
+                  importance: #MEDIUM,
+                  label: 'caracteristica' }],
+        identification: [{ position: 60 }] }
+  @EndUserText.label: 'Caracteristica'
+  caracteristicas;
+
+  @UI.hidden: true
+  criticidad;
+  
+  @UI: { lineItem: [{ position: 70,
+                      importance: #HIGH,
+                      criticality: 'criticidad', 
+                      criticalityRepresentation: #WITH_ICON }],
+         identification: [{ position: 70, 
+                            criticality: 'criticidad' }] }
+  @EndUserText.label: 'Mensaje'
+  mensaje;
+
+  @UI.hidden: true
+  localLastChangedAt;
+
+}

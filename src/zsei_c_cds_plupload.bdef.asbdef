@@ -1,0 +1,29 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZSEI_C_CDS_PLUPLOAD alias PLUpload
+use etag
+
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use action ejecutar;
+  use action procesar;
+
+  use association _Item { with draft; }
+}
+
+define behavior for ZSEI_C_CDS_PL_ITEM alias PLItem
+use etag
+{
+  use association _Upload { with draft; }
+}
